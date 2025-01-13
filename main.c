@@ -134,13 +134,13 @@ int main (int argc, char* argv[]) {
     rewind(fptr);
 
     // Writing provided program to a buffer
-    char *programmBuffer = (char *)malloc(filesize + 1);
+    char *programmBuffer = (char *)malloc(filesize);
     if (programmBuffer == NULL) {
-        perror("Unable to allocate memory, abotring...\n");
+        perror("Unable to allocate memory, aborting...\n");
         fclose(fptr);
         return 1;
     }
-    fread(programmBuffer, 1, filesize + 1, fptr);
+    fread(programmBuffer, 1, filesize, fptr);
 
     // File closing
     fclose(fptr);
