@@ -4,12 +4,12 @@
 char* InterpretBF(char* program, int programLength) {
 
     // Matching loop brackets check
-    int bracetDiff = 0;
+    int bracketDiff = 0;
     for (int i = 0; i < programLength; i++) {
-        if (program[i] == '[') { bracetDiff++; }
-        else if (program[i] == ']') { bracetDiff--; }
+        if (program[i] == '[') { bracketDiff++; }
+        else if (program[i] == ']') { bracketDiff--; }
     }
-    if (bracetDiff != 0) {
+    if (bracketDiff != 0) {
         return "Unmatched bracket detected, check if provided code is valid, aborting...";
     }
 
