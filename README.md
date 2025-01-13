@@ -8,4 +8,4 @@
 ./mybfi *filename*  |  ./mybfi test_examples/hello_world.bf
 
 ### PS
-It actually can read from any file, not only ".bf" or ".b", i am too tired to implement that sry :(
+It actually can read from any file, not only ".bf" or ".b", i am too tired to implement that sry :( Also it is a remake of my own BF interpreter tht was originaly written in JS, check out https://github.com/Xpaul6/JS-BF-interpreter
