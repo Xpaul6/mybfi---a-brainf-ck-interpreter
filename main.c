@@ -44,7 +44,7 @@ char* InterpretBF(char* program, int programLength) {
                 tape[tapeHeadPosition]--;
                 break;
             case '>':
-                if (tapeHeadPosition >= 30000) {
+                if (tapeHeadPosition >= 29999) {
                     free(tape);
                     free(output);
                     return "Tape length exceeded, check if provided code is valid, aborting...";
@@ -99,8 +99,7 @@ char* InterpretBF(char* program, int programLength) {
                         }
                     }
                 }
-                break;
-        
+                break; 
         }
 
         // Moving to the next instruction 
@@ -147,8 +146,10 @@ int main (int argc, char* argv[]) {
     fclose(fptr);
 
     // Interpreter call
-    printf("%s\n", InterpretBF(programmBuffer, filesize));
+    char* result = InterpretBF(programmBuffer, filesize);
+    printf("%s\n", result);
 
+    free(result);
     free(programmBuffer);
 
     return 0;
