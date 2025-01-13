@@ -113,7 +113,7 @@ char* InterpretBF(char* program, int programLength) {
 
 int main (int argc, char* argv[]) {
     if (argc != 2) {
-        printf("Invalid arguments, aborting...\nmybfi usage: bfc <filename>\n");
+        printf("Invalid arguments, aborting...\nmybfi usage: mybfi <filename>\n");
         return 1;
     }
 

@@ -1,6 +1,6 @@
 # mybfi - a brainf\*ck interpreter
 
-## Compilation
+## Compilation (*NIX systems)
 1. Make sure that both make and gcc are installed
 2. Run "make" command inside a terminal
 
