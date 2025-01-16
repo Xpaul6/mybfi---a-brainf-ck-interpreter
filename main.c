@@ -18,7 +18,7 @@ char* InterpretBF(char* program, int programLength) {
     char* output = (char*)malloc(sizeof(char)); // Output buffer 
     unsigned char* tape = (unsigned char*)malloc(30000); // "Array" of zeros with length of 30000
     if (output == NULL || tape == NULL) {
-        return "Unable to alocate memory, aborting";
+        return "Unable to alocate memory, aborting...";
     }
     int tapeHeadPosition = 0; // Tape head position index
     int programHeadPosition = 0; // Program poiner position index
@@ -61,7 +61,7 @@ char* InterpretBF(char* program, int programLength) {
                 break;
             case '.':
                 outputLength++;
-                char *tempBuf = (char *)realloc(output, outputLength * sizeof(char));
+                char* tempBuf = (char*)realloc(output, outputLength * sizeof(char));
                 if (tempBuf == NULL) {
                     free(output);
                     free(tape);
@@ -110,14 +110,14 @@ char* InterpretBF(char* program, int programLength) {
     return output; 
 }
 
-int main (int argc, char* argv[]) {
+int main(int argc, char* argv[]) {
     if (argc != 2) {
         printf("Invalid arguments, aborting...\nmybfi usage: mybfi <filename>\n");
         return 1;
     }
 
     // File opening
-    FILE *fptr = fopen(argv[1], "r");
+    FILE* fptr = fopen(argv[1], "r");
     if (fptr == NULL) {
         perror("Unable to open this file, aborting...\n");
         return 1;
@@ -134,7 +134,7 @@ int main (int argc, char* argv[]) {
     rewind(fptr);
 
     // Writing provided program to a buffer
-    char *programmBuffer = (char *)malloc(filesize);
+    char* programmBuffer = (char*)malloc(filesize);
     if (programmBuffer == NULL) {
         perror("Unable to allocate memory, aborting...\n");
         fclose(fptr);

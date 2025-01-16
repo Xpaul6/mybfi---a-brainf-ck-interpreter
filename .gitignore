@@ -1,2 +1,4 @@
 *.sh
 mybfi
+main.s
+mybfi-win64.exe
