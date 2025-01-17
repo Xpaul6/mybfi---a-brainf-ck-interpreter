@@ -16,9 +16,13 @@ char* InterpretBF(char* program, int programLength) {
     // Variables definition
     int outputLength = 0; // Output buffer length
     char* output = (char*)malloc(sizeof(char)); // Output buffer 
+    if (output == NULL) {
+        return "Unable to allocate memory for output buffer, aborting...";
+    }
     unsigned char* tape = (unsigned char*)malloc(30000); // "Array" of zeros with length of 30000
-    if (output == NULL || tape == NULL) {
-        return "Unable to alocate memory, aborting...";
+    if (tape == NULL) {
+        free(output);
+        return "Unable to allocate memory for the tape, aborting...";
     }
     int tapeHeadPosition = 0; // Tape head position index
     int programHeadPosition = 0; // Program poiner position index
@@ -37,13 +41,13 @@ char* InterpretBF(char* program, int programLength) {
 
         // Main switch case
         switch (program[programHeadPosition]) {
-            case '+':
+            case '+': // Increasing current cell by 1
                 tape[tapeHeadPosition]++;
                 break;
-            case '-':
+            case '-': // Decreasing currrent cell by 1
                 tape[tapeHeadPosition]--;
                 break;
-            case '>':
+            case '>': // Moving tape head right
                 if (tapeHeadPosition >= 29999) {
                     free(tape);
                     free(output);
@@ -51,7 +55,7 @@ char* InterpretBF(char* program, int programLength) {
                 }
                 tapeHeadPosition++;
                 break;
-            case '<':
+            case '<': // Moving tape head left
                 if (tapeHeadPosition <= 0) {
                     free(tape);
                     free(output);
@@ -59,23 +63,23 @@ char* InterpretBF(char* program, int programLength) {
                 }
                 tapeHeadPosition--;
                 break;
-            case '.':
+            case '.': // Wrinting current symbol(from ASCII code in the cell) to the output buffer
                 outputLength++;
-                char* tempBuf = (char*)realloc(output, outputLength * sizeof(char));
+                char* tempBuf = (char*)realloc(output, outputLength * sizeof(char)); // New buffer is longer by 1 symbol
                 if (tempBuf == NULL) {
                     free(output);
                     free(tape);
                     return "Unable to allocate memory, aborting...";
                 }
-                output = tempBuf;
-                output[outputLength - 1] = (char)tape[tapeHeadPosition];
+                output = tempBuf; // Updating actual buffer location
+                output[outputLength - 1] = (char)tape[tapeHeadPosition]; // Converting ASCII code into its symbol
                 break;
-            case ',':
-                tape[tapeHeadPosition] = (int)program[programHeadPosition + 1];
+            case ',': // Writing the folowing symbol(its ASCII code) into the cell
+                tape[tapeHeadPosition] = (int)program[programHeadPosition + 1]; // Converting symbol into its ASCII representation
                 programHeadPosition++;
                 break;
-            case '[':
-                if (tape[tapeHeadPosition] == 0) {
+            case '[': // Loop block start
+                if (tape[tapeHeadPosition] == 0) { // Loop ends if current cell is equal to 0
                     int loopCounter = 1; // Nested loops counter
                     while (loopCounter > 0) {
                         programHeadPosition++; // Program pointer head moves forward until it reaches its corresponding bracket
@@ -87,8 +91,8 @@ char* InterpretBF(char* program, int programLength) {
                     }
                 }
                 break;
-            case ']':
-                if (tape[tapeHeadPosition] != 0) {
+            case ']': // Loop block end
+                if (tape[tapeHeadPosition] != 0) { // Loop breaks if current cell is equal to 0
                     int loopCounter = 1; // Nested loops counter
                     while (loopCounter > 0) {
                         programHeadPosition--; // Program pointer head moves forward until it reaches its corresponding bracket
@@ -131,7 +135,7 @@ int main(int argc, char* argv[]) {
         fclose(fptr);
         return 1;
     }
-    rewind(fptr);
+    rewind(fptr); // Returns file pointer to the initial position
 
     // Writing provided program to a buffer
     char* programmBuffer = (char*)malloc(filesize);
